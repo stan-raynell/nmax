@@ -6,18 +6,19 @@ module Nmax
   module_function
 
   def reader
-    # Чтение данных из стандартного ввода
+    # This method reads standard input from pipe
     $stdin.tty? ? "" : $stdin.read
   end
 
   def extractor
-    # Поиск чисел в прочтённых данных
+    # This method extracts integers from the obtained sequence.
+    # It returns an array of integers or a warning message.
     extract = reader
     extract.empty? ? "No input!" : extract.scan(/\d{1,1000}/).map(&:to_i)
   end
 
   def output
-    # Проверка результата поиска и выдача
+    # Here the previous methods results are evaluated against validation checks
     result = extractor
     if result == "No input!"
       result
@@ -28,6 +29,8 @@ module Nmax
     elsif !Integer(ARGV[0], exception: false)
       "Argument is not a number!"
     else
+      # If all validations are passed the array gets sorted and n largest
+      # digits are extracted. Their number is set as a command line argument.
       result.sort.last(ARGV[0].to_i).reverse
     end
   end
