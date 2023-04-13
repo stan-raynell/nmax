@@ -11,3 +11,9 @@
 
 Пример запуска:
 cat sample_data_40GB.txt | nmax 10000
+
+*   *   *   *   *
+
+Запуск с тестовыми данными: 
+
+cat test | ruby "./lib/nmax.rb" 3
