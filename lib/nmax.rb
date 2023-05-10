@@ -5,21 +5,21 @@ module Nmax
 
   module_function
 
-  def reader
+  def read_data
     # Этот метод читает входные данные из linux pipe
     $stdin.tty? ? "" : $stdin.read
   end
 
-  def extractor
+  def extract_digits
     # Этот метод извлекает числа из полученной последовательности.
     # Он возвращает массив чисел или сообщение об ошибке.
-    extract = reader
+    extract = read_data
     extract.empty? ? "No input!" : extract.scan(/\d{1,1000}/).map(&:to_i)
   end
 
-  def output
+  def produce_output
     # Здесь результаты работы предыдущих методов проходят проверки на валидность.
-    result = extractor
+    result = extract_digits
     if result == "No input!"
       result
     elsif ARGV[0].nil?
@@ -36,5 +36,5 @@ module Nmax
     end
   end
 
-  p output
+  p produce_output
 end
